@@ -18,29 +18,34 @@ Route::get('/', function () {
 
 //Route::get('/register','RegisterController');
 
-Route::get('/register/company','CompanyController@create');
+Route:post('update/picture','UpdateController@pictureUpdate');
 
-Route::post('/register/company','CompanyController@store');
+Route::get('/register/company','CompanyController@getCompanyRegister');
+Route::post('/register/company','CompanyController@postCompanyRegister');
 
-//Route::get('/register/company/{token}','CompanyController@verification');
-Route::post('/register/company/info','CompanyController@companyRegisterInfo');
+Route::get('/register/company/info/{token}','CompanyController@getCompanyRegisterInfo');
+Route::post('/register/company/info/','CompanyController@postCompanyRegisterInfo');
+
+Route::get('/register/company/tag/','CompanyController@getCompanyRegisterTag');
+Route::post('/register/company/tag/','CompanyController@postCompanyRegisterTag');
+
+Route::get('/register/company/product/','CompanyController@getCompanyRegisterProduct');
+Route::post('/register/company/product/','CompanyController@postCompanyRegisterProduct');
+
+Route::get('/register/company/team/','CompanyController@getCompanyRegisterTeam');
+Route::post('/register/company/team/','CompanyController@postCompanyRegisterTeam');
+
+Route::get('/register/company/desc/','CompanyController@getCompanyRegisterDesc');
+Route::post('/register/company/desc/','CompanyController@postCompanyRegisterDesc');
+
+Route::get('/register/company/{id}','CompanyController@getCompanyShow');
 
 
 
-//Route::get('/ajax/test','CompanyController@ajaxCreate');
-//Route::post('/ajax/test','CompanyController@ajaxStore');
 
-
-Route::get('/ajax/test','CompanyController@ajaxCreate');
-Route::post('/ajax/test','CompanyController@ajaxStore');
-Route::post('/register/companyTag','CompanyController@companyRegisterTag');
-
-Route::get('/register/company/{token}','CompanyController@verification');
-
-
-Route::group(['middleware' => 'enableCrossRequestMiddleware'], function () {
-
-});
+//Route::group(['middleware' => 'enableCrossRequestMiddleware'], function () {
+//
+//});
 
 
 

@@ -15,7 +15,7 @@ class CreateCompanyTagTable extends Migration
         Schema::create('company_tag', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('companyId')->references('id')->on('companies');
-            $table->integer('tegId')->references('id')->on('tags');
+            $table->integer('tagId')->references('id')->on('tags');
             $table->timestamps();
         });
     }

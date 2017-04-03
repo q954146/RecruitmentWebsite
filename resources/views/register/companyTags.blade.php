@@ -10,7 +10,7 @@
 </head>
 <body>
 
-<form action="/register/companyTag" method="post" id="form">
+<form action="/register/company/tag" method="post" id="form">
     <input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}"/>
 
     <div id="show">
@@ -49,48 +49,7 @@
 
 </form>
 
-<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
-<script>
-    $(document).ready(function () {
-        var newTags = new Array();
-        var oldTags = new Array();
-        var i =0;
-        $('#ok').click(function () {
-           $('#show').append($('#newTag').val() + " ");
-           newTags[i] = $('#newTag').val();
-           i++;
-        });
-        i = 0;
-        $('#submit').click(function () {
-            $("input[name='tag']:checked").each(function () {
-                oldTags[i] = this.value;
-                i++;
-            });
-            $.ajax({
-                url:'/register/companyTag',
-                type:"POST",
-                dataType:"json",
-                async:false,
-                data:{
-                    '_token':$('#_token').val(),
-                    newTags:newTags,
-                    oldTags:oldTags
-                },
-                headers:{
-                    'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')
-                },
-                timeout:3000,
-                success:function (data) {
-                    alert(data.status);
-                },
-                error: function(jqXHR){
-                    console.log('error', jqXHR)
-                }
-            });
-        });
-});
+{{--<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>--}}
 
-
-</script>
 </body>
 </html>
