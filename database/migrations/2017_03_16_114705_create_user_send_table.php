@@ -14,8 +14,8 @@ class CreateUserSendTable extends Migration
     {
         Schema::create('user_send', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('professionId')->references('id')->on('professions');
-            $table->integer('resumeId')->references('id')->on('resumes');
+            $table->integer('profession_id')->references('id')->on('professions');
+            $table->integer('resume_id')->references('id')->on('resumes');
             $table->timestamps();
         });
     }

@@ -28,8 +28,7 @@ class Company extends Model
         return $this->belongsTo('App\Trade','tradeId');
     }
 
-    public function tag(){
-        return $this->belongsToMany('App\Tag','company_tag','companyId','tagId');
+    public function tags(){
+        return $this->belongsToMany('App\Tag')->withTimestamps();
     }
 }
-

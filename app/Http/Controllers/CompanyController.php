@@ -15,18 +15,18 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
+use Validator;
 use Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\Console\Helper\Table;
 
 
-class CompanyController extends Controller
-{
+class CompanyController extends Controller{
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * 公司注册
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
 
     public function getCompanyRegister()
@@ -41,6 +41,7 @@ class CompanyController extends Controller
 
     public function postCompanyRegister(Requests\CompanyRegisterRequest $request)
     {
+//        dd($request);
         $token = new Token();
 //        dd($request);
         $name = $request->name;
@@ -60,7 +61,7 @@ class CompanyController extends Controller
             $token->save();
             echo "email success";
         } else {
-            echo 'email fault';
+//            return back()->withErrors($request->messages())->withInput();
         }
     }
 
@@ -82,6 +83,7 @@ class CompanyController extends Controller
         $timediff = $time - $arr[2];
 //        dd($timediff);
         $mins = intval($timediff / 60);
+
 
         $trade = new Trade();
 
@@ -105,68 +107,74 @@ class CompanyController extends Controller
 
 
     /**
-     * @param Requests\CompanyInfoRegisterRequest $requests
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector /register/company/tag/
      * 公司信息存入数据库中并重定向到公司标签页面
+     * @param Request $requests
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector /register/company/tag/
      */
-    public function postCompanyRegisterInfo(Requests\CompanyInfoRegisterRequest $requests)
+    public function postCompanyRegisterInfo(Request $requests)
     {
-        //获取文件内容
-//        if ($logo->isValid()) {
-//            // 获取文件相关信息
-//            $originalName = $logo->getClientOriginalName(); // 文件原名
-//            $ext = $logo->getClientOriginalExtension();     // 扩展名
-//            $realPath = $logo->getRealPath();   //临时文件的绝对路径
-//            $type = $logo->getClientMimeType();     // image/jpeg
-//            // 上传文件
-//            $logo = md5($originalName . time()) . '.' . $ext;
-//            // 使用我们新建的uploads本地存储空间（目录）
-//            $flag = Storage::disk()->put($logo, file_get_contents($realPath));
-////            dd($flag);
-//        }
-
         //获取request中的内容
-        $logo = $requests->logo;
-        $name = $requests->name;
-        $tel = $requests->tel;
-        $shortName = $requests->shortName;
-        $web = $requests->web;
-        $city = $requests->city;
-        $trade = $requests->trade;
-        $scale = $requests->scale;
-        $stage = $requests->stage;
-        $oneDesc = $requests->oneDesc;
-        $email = $requests->session()->get('email');
 
-        $fillable = [
-            'name' => $name,
-            'shortName' => $shortName,
-            'tel' => $tel,
-            'email' => $email,
-            'logo' => $logo,
-            'web' => $web,
-            'city' => $city,
-            'scale' => $scale,
-            'stage' => $stage,
-            'desc' => 'desc',
-            'oneDesc' => $oneDesc,
-            'state' => 0,
-            'tradeId' => $trade,
-        ];
+        $validator = Validator::make($requests->all(), [
+            'name' => 'required',
+            'tel' => 'required',
+            'shortName' => 'required|min:1',
+            'web' => 'required|url',
+            'city' => 'required',
+            'trade' => 'required',
+            'scale' => 'required',
+            'stage' => 'required',
+            'oneDesc' => 'required|min:10'
+        ]);
 
-        $company = new Company($fillable);
-        $flag = $company->save();
-        $id = $company->get()->max('id');
+        $error = $validator->error();
+
+        if ($validator->fails()) {
+            return Response::json(['errors' => $error], 401);
+        } else {
+            $logo = $requests->logo;
+            $name = $requests->name;
+            $tel = $requests->tel;
+            $shortName = $requests->shortName;
+            $web = $requests->web;
+            $city = $requests->city;
+            $trade = $requests->trade;
+            $scale = $requests->scale;
+            $stage = $requests->stage;
+            $oneDesc = $requests->oneDesc;
+            $email = $requests->session()->get('email');
+
+            $fillable = [
+                'name' => $name,
+                'shortName' => $shortName,
+                'tel' => $tel,
+                'email' => $email,
+                'logo' => $logo,
+                'web' => $web,
+                'city' => $city,
+                'scale' => $scale,
+                'stage' => $stage,
+                'desc' => 'desc',
+                'oneDesc' => $oneDesc,
+                'state' => 0,
+                'tradeId' => $trade,
+            ];
+
+
+            $company = new Company($fillable);
+            $flag = $company->save();
+            $id = $company->get()->max('id');
 //        dd($id);
-        if ($flag){
-            Session::put('id',$id);
-            return redirect('/register/company/tag/');
+            if ($flag) {
+                Session::put('id', $id);
+                return redirect('/register/company/tag/');
+            }
         }
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * 公司标签选择页面
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function getCompanyRegisterTag(){
         $tags = new Tag();
@@ -221,61 +229,40 @@ class CompanyController extends Controller
     }
 
     /**
+     * 公司标签处理页面
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     * 公司标签处理页面
      */
     public function postCompanyRegisterTag(Request $request){
-
-//  {
-//     "oldTags":[{
-//       "0":1,
-//		 "1":23
-//	    }],
-//	"newTags":[{
-//      "0":"哈哈哈",
-//		"1":"啦啦啦"
-//	}],
-//	"id":2
-//}
-
-        $data = $request->json();
+//
+//        {
+//            "oldTags":[
+//            0,23
+//        ],
+//           "newTags":[
+//            "lalala","hahaha"
+//        ],
+//	    "id":2
+//        }
+        $data = $request->json()->all();
 //        dd($data);
-        $oldTags = $data->all()['oldTags'];
-        $newTags = $data->all()['newTags'];
-        $id = $request->session()->get('id');
-
-//        新标签
-        foreach ($newTags as $newTag){
-            foreach ($newTag as $tag){
-                //将新标签插入标签表
-                $fillable = [
-                    'name' => $tag,
-                    'state' =>0,
-                    'type' =>0,
-                ];
-                $tag = new Tag($fillable);
-                $tag->save();
-                //插入数据到company_tag表
-                $tagId = $tag->get()->max('id');
-                DB::table('company_tag')->insert([
-                    'companyId'  => $id,
-                    'tagId'      => $tagId,
-                    'created_at' => Carbon::now(),
-                    'updated_at' => Carbon::now()
-                ]);
-            }
+        $oldTags = $data['oldTags'];
+        $newTags = $data['newTags'];
+        $id = $data['id'];
+        $company = Company::findorfail($id);
+        foreach ($oldTags as $oldTag){
+            $company->tags()->attach($oldTag);
         }
-        //旧标签
-        foreach ($oldTags as $oldTag) {
-            foreach ($oldTag as $tag) {
-                DB::table('company_tag')->insert([
-                    'companyId' => $id,
-                    'tagId' => $tag,
-                    'created_at' => Carbon::now(),
-                    'updated_at' => Carbon::now()
-                ]);
-            }
+        foreach ($newTags as $newTag){
+            $fillable = [
+                'name'   => $newTag,
+                'type'   => 0,
+                'state'  => 0
+            ];
+            $tag = new Tag($fillable);
+            $tag->save();
+            $newTagId = $tag->get()->max('id');
+            $company->tags()->attach($newTagId);
         }
         return redirect('/register/company/product/');
     }
@@ -334,7 +321,11 @@ class CompanyController extends Controller
         return view('register.companyTeam');
     }
 
-
+    /**
+     * 插入公司团队信息
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function postCompanyRegisterTeam(Request $request){
 
 //        {
@@ -361,10 +352,18 @@ class CompanyController extends Controller
         return redirect('/register/company/desc/');
     }
 
+    /**
+     * 返回公司介绍页面
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function getCompanyRegisterDesc(){
         return view('register.companyDesc');
     }
 
+    /**
+     * 插入公司简介
+     * @param Request $request
+     */
     public function postCompanyRegisterDesc(Request $request){
         $data = $request->json()->all();
         $desc = $data['desc'];
@@ -376,6 +375,63 @@ class CompanyController extends Controller
     }
 
     public function getCompanyShow($id){
+
+        $company = Company::findorfail($id);
+        $products = Product::where('companyId',$id)->get();
+        $teams = Team::where('companyId',$id)->get();
+        $tags = $company->tags;
+        $tagArr = null;
+        $teamArr = null;
+        $productArr = null;
+
+//        team信息获取
+        foreach ($teams as $key => $team){
+            $teamArr[$key] = [
+                'name'       => $team->name,
+                'position'   => $team->position,
+                'weibo'      => $team->weibo,
+                'desc'       => $team->desc,
+                'image'      => $team->image
+            ];
+        }
+
+        //product信息获取
+        foreach ($products as $key => $product){
+            $productArr[$key] = [
+                'name'       => $product->name,
+                'link'       => $product->link,
+                'desc'       => $product->desc,
+                'image'      => $product->image
+            ];
+        }
+
+        //company信息获取
+        $companyArr = [
+            'name'      => $company->name,
+            'shortName' => $company->shortName,
+            'tel'       => $company->tel,
+            'email'     => $company->email,
+            'logo'      => $company->logo,
+            'web'       => $company->web,
+            'city'      => $company->city,
+            'scale'     => $company->scale,
+            'stage'     => $company->stage,
+            'desc'      => $company->desc,
+            'oneDesc'   => $company->oneDesc,
+            'trade'     => $company->trade->name
+        ];
+
+        //tag信息获取
+        foreach ($tags as $key => $tag){
+            $tagArr[$key] = $tag->name;
+        }
+
+        return view('index.company',[
+            'tags'         => $tagArr,
+            'companyInfo'  => $companyArr,
+            'product'      => $productArr,
+            'team'         => $teamArr
+        ]);
 
     }
 

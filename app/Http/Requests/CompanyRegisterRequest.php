@@ -24,8 +24,8 @@ class CompanyRegisterRequest extends Request
     public function rules()
     {
         return [
-            'name'    => 'required',
-            'email'   => 'required|email'
+            'name'    => 'required | unique:companies,name',
+            'email'   => 'required | email'
         ];
     }
 }

@@ -13,7 +13,7 @@
 
 
 Route::get('/', function () {
-    return view('welcome',['name'=>'name']);
+    return view('welcome');
 });
 
 //Route::get('/register','RegisterController');
@@ -38,8 +38,18 @@ Route::post('/register/company/team/','CompanyController@postCompanyRegisterTeam
 Route::get('/register/company/desc/','CompanyController@getCompanyRegisterDesc');
 Route::post('/register/company/desc/','CompanyController@postCompanyRegisterDesc');
 
-Route::get('/register/company/{id}','CompanyController@getCompanyShow');
+Route::get('/register/company/show/{id}','CompanyController@getCompanyShow');
 
+Route::get('/profession/publish/','ProfessionController@getPublishProfession');
+Route::post('/profession/publish/','ProfessionController@postPublishProfession');
+
+// 认证路由...
+Route::get('auth/login', 'Auth\AuthController@getLogin');
+Route::post('auth/login', 'Auth\AuthController@postLogin');
+Route::get('auth/logout', 'Auth\AuthController@getLogout');
+// 注册路由...
+Route::get('auth/register', 'Auth\AuthController@getRegister');
+Route::post('auth/register', 'Auth\AuthController@postRegister');
 
 
 

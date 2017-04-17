@@ -35,4 +35,10 @@ class CompanyInfoRegisterRequest extends Request
             'oneDesc'     => 'required|min:10'
         ];
     }
+
+    public function messages(){
+        return [
+
+        ];
+    }
 }

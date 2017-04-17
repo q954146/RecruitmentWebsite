@@ -13,7 +13,7 @@ class Tag extends Model
         'type',
     ];
 
-    public function tag(){
-        return $this->belongsToMany('App\Company','company_tag','tagId','companyId');
+    public function companies(){
+        return $this->belongsToMany('App\Company')->withTimestamps();
     }
 }

@@ -14,8 +14,8 @@ class CreateUserCollectionTable extends Migration
     {
         Schema::create('user_collection', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('userId')->references('id')->on('users');
-            $table->integer('professionId')->references('id')->on('professions');
+            $table->integer('user_id')->references('id')->on('users');
+            $table->integer('profession_id')->references('id')->on('professions');
             $table->timestamps();
         });
     }
