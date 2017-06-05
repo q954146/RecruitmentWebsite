@@ -7,10 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     protected $fillable = [
-        'companyId',
+        'company_id',
         'name',
         'link',
         'image',
         'desc'
     ];
+
+    public function company(){
+        return $this->belongsTo('App\Company');
+    }
 }

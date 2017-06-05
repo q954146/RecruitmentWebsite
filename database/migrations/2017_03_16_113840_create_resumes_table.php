@@ -14,19 +14,18 @@ class CreateResumesTable extends Migration
     {
         Schema::create('resumes', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('userId')->references('id')->on('users');
-            $table->string('name');
+            $table->integer('user_id')->references('id')->on('users');
+            $table->string('name')->default('');
             $table->tinyInteger('sex')->default(0);
             $table->tinyInteger('education')->default(0);
             $table->tinyInteger('workYear')->default(0);
-            $table->string('phone')->index();
-            $table->string('email')->index();
-            $table->string('city');
-            $table->string('image');
-            $table->text('introduction');
+            $table->string('phone')->index()->default('');
+            $table->string('email')->index()->default('');
+            $table->string('image')->default('');
+            $table->text('introduction')->default('');
             $table->tinyInteger('state')->default(0);
             $table->tinyInteger('deliver')->default(0);
-            $table->string('annex');
+            $table->string('annex')->default('');
             $table->timestamps();
         });
     }

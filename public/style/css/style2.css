@@ -1,0 +1,32 @@
+.submit{
+    font-family: "微软雅黑","宋体",Arial;
+    outline: none;
+    cursor: pointer;
+    border: none;
+    color: #fff;
+    height: 35px;
+    line-height: 35px;
+    font-size: 18px;
+    padding: 0 15px;
+    background: #64c0ab;
+    margin: 30px 30px;
+}
+.submit:hover{
+    background: #3f7e6c;
+}
+
+table{
+    width: 800px;
+    text-align: center;
+    margin: 100px 0 0 200px;
+    border-collapse:collapse ;
+    table-layout: fixed;
+}
+table tr td{
+    height: 50px;
+    border: 1px solid black;
+
+}
+table thead td{
+    border: 1px solid black;
+}

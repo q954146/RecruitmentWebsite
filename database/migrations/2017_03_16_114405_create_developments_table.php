@@ -14,7 +14,7 @@ class CreateDevelopmentsTable extends Migration
     {
         Schema::create('developments', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('companyId')->references('id')->on('companies');
+            $table->integer('company_id')->references('id')->on('companies');
             $table->string('name');
             $table->text('desc');
             $table->date('time');

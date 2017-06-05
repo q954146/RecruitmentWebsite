@@ -6,10 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Token extends Model
 {
-    protected $table = 'tokens';
+//    protected $table = 'tokens';
 
     protected $fillable = [
-        'name'
+        'name',
+        'email',
+        'time',
+        'token'
     ];
 
 

@@ -32,6 +32,7 @@ class User extends Model implements AuthenticatableContract,
         'name',
         'email',
         'password',
+        'type',
         'loginIp',
         'loginTime'
     ];
@@ -42,4 +43,25 @@ class User extends Model implements AuthenticatableContract,
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
+
+    public function company(){
+        return $this->belongsTo('App\Company');
+    }
+
+    public function resume(){
+        return $this->hasOne('App\Resume');
+    }
+
+    public function professions(){
+        return $this->belongsToMany('App\Profession')->withTimestamps()->withPivot('id');
+    }
+
+    public function profession(){
+        return $this->hasMany('App\Profession');
+    }
+
+    public function answers(){
+        return $this->hasMany('App\Answer');
+    }
+
 }

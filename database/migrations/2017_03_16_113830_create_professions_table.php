@@ -15,7 +15,7 @@ class CreateProfessionsTable extends Migration
         Schema::create('professions', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('companyId')->references('id')->on('companies')->index();
-            $table->integer('userId')->references('id')->on('users')->index();
+            $table->integer('user_id')->references('id')->on('users')->index();
             $table->string('name');
             $table->string('branch')->nullable();
             $table->integer('salaryHigh');
@@ -28,7 +28,7 @@ class CreateProfessionsTable extends Migration
             $table->text('desc');
             $table->string('address');
             $table->string('email');
-            $table->integer('categoryId')->references('id')->on('categories');
+            $table->integer('category_id')->references('id')->on('categories');
             $table->timestamps();
         });
     }

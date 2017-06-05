@@ -16,6 +16,7 @@ class CreateCategoriesTable extends Migration
             $table->increments('id');
             $table->integer('pId');
             $table->string('name');
+            $table->string('path');
             $table->timestamps();
         });
     }

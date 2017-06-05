@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUserSendTable extends Migration
+class CreateUserProfessionTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,10 +12,10 @@ class CreateUserSendTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_send', function (Blueprint $table) {
+        Schema::create('user_profession', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('profession_id')->references('id')->on('professions');
-            $table->integer('resume_id')->references('id')->on('resumes');
+            $table->integer('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

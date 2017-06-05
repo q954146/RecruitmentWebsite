@@ -14,7 +14,7 @@ class CreateWorksTable extends Migration
     {
         Schema::create('works', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('resumeId')->references('id')->on('resumes');
+            $table->integer('resume_id')->references('id')->on('resumes');
             $table->string('link');
             $table->string('description');
             $table->timestamps();

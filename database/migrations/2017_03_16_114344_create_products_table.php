@@ -14,7 +14,7 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('companyId')->references('id')->on('companies');
+            $table->integer('company_id')->references('id')->on('companies');
             $table->string('name');
             $table->string('image');
             $table->string('link');

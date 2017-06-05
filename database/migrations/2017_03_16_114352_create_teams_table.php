@@ -14,7 +14,7 @@ class CreateTeamsTable extends Migration
     {
         Schema::create('teams', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('companyId')->references('id')->on('companies');
+            $table->integer('company_id')->references('id')->on('companies');
             $table->string('name');
             $table->string('position');
             $table->string('weibo');

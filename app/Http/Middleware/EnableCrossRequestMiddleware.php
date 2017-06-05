@@ -1,13 +1,9 @@
-<?php
-
-namespace App\Http\Middleware;
+<?php namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Http\Request;
-use Response;
+use Illuminate\Http\Response;
+class EnableCrossRequestMiddleware {
 
-class EnableCrossRequestMiddleware
-{
     /**
      * Handle an incoming request.
      *
@@ -17,11 +13,14 @@ class EnableCrossRequestMiddleware
      */
     public function handle($request, Closure $next)
     {
+
+        /** @var Response $response */
         $response = $next($request);
         $response->header('Access-Control-Allow-Origin', 'http://123.207.137.43');
-        $response->header('Access-Control-Allow-Headers', 'Origin, Content-Type, Session, Accept, OPTIONS,X-CSRF-TOKEN');
-        $response->header('Access-Control-Allow-Methods', 'GET, POST, PATCH, PUT');
+        $response->header('Access-Control-Allow-Headers', 'Origin, Content-Type, Cookie, Accept');
+        $response->header('Access-Control-Allow-Methods', 'GET, POST, PATCH, PUT, OPTIONS,X-CSRF-TOKEN');
         $response->header('Access-Control-Allow-Credentials', 'true');
         return $response;
     }
+
 }

@@ -14,10 +14,9 @@ class CreateEducationTable extends Migration
     {
         Schema::create('education', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('resumeId')->references('id')->on('resumes');
+            $table->integer('resume_id')->references('id')->on('resumes');
             $table->string('school');
             $table->string('education');
-            $table->string('professional');
             $table->date('beginTime');
             $table->date('endTime');
             $table->timestamps();

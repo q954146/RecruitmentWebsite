@@ -13,6 +13,6 @@ class Trade extends Model
 
 
     public function company(){
-        $this->hasMany('App\Company');
+       return $this->hasMany('App\Company');
     }
 }

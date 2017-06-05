@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->tinyInteger('state')->default(0);
             $table->timestamp('loginTime');
             $table->string('loginIp');
+            $table->integer('company_id')->references('id')->on('companies')->index()->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

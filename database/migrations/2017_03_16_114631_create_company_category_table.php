@@ -14,8 +14,8 @@ class CreateCompanyCategoryTable extends Migration
     {
         Schema::create('company_category', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('companyId')->references('id')->on('companies');
-            $table->integer('categoryId')->references('id')->on('categories');
+            $table->integer('company_id')->references('id')->on('companies');
+            $table->integer('category_id')->references('id')->on('categories');
             $table->timestamps();
         });
     }

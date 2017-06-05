@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Requests\Request;
+use App\HopeProfession;
+use App\Resume;
+use App\workExperience;
+use Illuminate\Http\Request;
 use App\Http\Requests\UserLoginRequest;
 use App\Http\Requests\UserRegisterRequest;
 use App\User;
@@ -43,34 +46,56 @@ class AuthController extends Controller
 
     /**
      * Create a new user instance after a valid registration.
-     *
      * @param  array  $data
      * @return User
      */
     protected function create(array $data){
-
         return User::create([
             'name' => $data['name'],
             'password' => bcrypt($data['password']),
             'type' => $data['type'],
             'email' => $data['email']
-//            'loginTime' => Carbon::now()->toDateTimeString(),
-//            'loginIp' => $data['loginIp']
         ]);
-
     }
 
+    /**
+     * 注册
+     * @param UserRegisterRequest $request
+     * @return $this|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function postRegister(UserRegisterRequest $request){
         $data = $request->all();
-//        dd($data);
         $flag = $this->create($data);
         if ($flag) {
+            $resume = Resume::create([
+                'user_id' => $flag['id']
+            ]);
+            HopeProfession::create([
+                'resume_id' =>$resume['id']
+            ]);
+            workExperience::create([
+                'resume_id' => $resume['id']
+            ]);
+//            dd($resume);
             Auth::login($flag);
             return redirect($this->redirectPath());
         }
         return back()->withErrors($request->messages())->withInput();
     }
 
-
+    /**
+     * 用户登录成功后，将loginTime和loginIp写到数据库
+     * @param \Illuminate\Http\Request  $request
+     * @param User $user
+     * @return \Illuminate\Http\Response
+     */
+    public function authenticated(Request $request,User $user){
+        date_default_timezone_set('PRC');
+        $user->update([
+            'loginIp' => $request->ip(),
+            'loginTime' => Carbon::now()->toDateTimeString()
+        ]);
+        return redirect()->intended($this->redirectPath());
+    }
 
 }

@@ -14,7 +14,7 @@ class CreateWorkExperiencesTable extends Migration
     {
         Schema::create('work_experiences', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('resumeId')->references('id')->on('resumes');
+            $table->integer('resume_id')->references('id')->on('resumes');
             $table->string('company');
             $table->string('profession');
             $table->string('beginYearTime');

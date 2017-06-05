@@ -14,7 +14,7 @@ class CreateProjectsTable extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('resumeId')->references('id')->on('resumes');
+            $table->integer('resume_id')->references('id')->on('resumes');
             $table->string('name');
             $table->string('profession');
             $table->string('beginYearTime');

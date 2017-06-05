@@ -14,21 +14,22 @@ class CreateSendsTable extends Migration
     {
         Schema::create('sends', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('userId')->references('id')->on('users');
-            $table->integer('professionId')->references('id')->on('professions');
-            $table->string('auditionAddress');
-            $table->string('auditionLinkMan');
-            $table->string('auditionLinkPhone');
-            $table->string('auditionTime');
+            $table->integer('user_profession_id')->references('id')->on('user_profession');
+            $table->string('auditionAddress')->default('');
+            $table->string('auditionLinkMan')->default('');
+            $table->string('auditionLinkPhone')->default('');
+            $table->integer('auditionTime')->default(0);
             $table->tinyInteger('sendType')->default(0);
-            $table->tinyInteger('sendState')->default(0);
-            $table->timestamp('sendStateTime');
+            $table->tinyInteger('sendSuccessState')->default(0);
+            $table->integer('sendSuccessTime')->default(0);
+            $table->tinyInteger('viewedState')->default(0);
+            $table->integer('viewedTime')->default(0);
             $table->tinyInteger('pendingState')->default(0);
-            $table->timestamp('pendingStateTime');
+            $table->integer('pendingTime')->default(0);
             $table->tinyInteger('auditionState')->default(0);
-            $table->timestamp('auditionStateTime');
+            $table->integer('auditionStateTime')->default(0);
             $table->tinyInteger('inappropriateState')->default(0);
-            $table->timestamp('inappropriateStateTime');
+            $table->integer('inappropriateStateTime')->default(0);
             $table->timestamps();
         });
     }

@@ -1,0 +1,80 @@
+.upload_img{
+    margin: 30px 0;
+}
+.box{
+    margin-top: 30px;
+    font-size: 16px;
+}
+.title{
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 0 10px 0;
+    background: url(img/profile_square.png) 0 3px no-repeat;
+    padding-left: 20px;
+}
+.perImg{
+    -webkit-border-radius: 60px;
+    -moz-border-radius: 60px;
+    border-radius: 60px;
+}
+#infBox{
+    font-size: 16px;
+    line-height: 25px;
+}
+.button{
+    float: right;
+    padding: 0 30px;
+    font-size: 20px;
+    color: #fff;
+    border: none;
+    height: 40px;
+    line-height: 40px;
+    background: #0d9572;
+    cursor: pointer;
+}
+.button:hover{
+    background: #0d7756;
+}
+input[type="radio"]{
+    width: 15px;
+    height: 15px;
+}
+.ridioText{
+    font-size: 16px;
+}
+form{
+    line-height: 40px;
+}
+select{
+    min-width: 80px;
+    height: 30px;
+    font-size: 16px;
+}
+select option{
+    font-size: 16px;
+}
+.subbutton{
+    padding: 0 30px;
+    font-size: 20px;
+    color: #fff;
+    border: none;
+    height: 40px;
+    line-height: 40px;
+    background: #0d9572;
+    cursor: pointer;
+    display:inline-block;
+    margin-top: 20px;
+    margin-right: 20px;
+}
+.subbutton:hover{
+    background: #0d7756;
+}
+
+#workBox{
+    font-size: 16px;
+    line-height: 25px;
+}
+#eduBox{
+    font-size: 16px;
+    line-height: 25px;
+}

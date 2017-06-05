@@ -26,8 +26,7 @@ class CreateCompaniesTable extends Migration
             $table->text('desc');
             $table->string('oneDesc')->index();
             $table->tinyInteger('state')->default(0);
-            $table->string('username');
-            $table->integer('tradeId')->references('id')->on('trades')->index();
+            $table->integer('trade_id')->references('id')->on('trades')->index();
             $table->timestamps();
         });
     }

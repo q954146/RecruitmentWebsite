@@ -19,7 +19,7 @@ class Kernel extends HttpKernel
         \Illuminate\Session\Middleware\StartSession::class,
         \Illuminate\View\Middleware\ShareErrorsFromSession::class,
         \App\Http\Middleware\VerifyCsrfToken::class,
-//        \App\Http\Middleware\EnableCrossRequestMiddleware::class
+        \App\Http\Middleware\EnableCrossRequestMiddleware::class
     ];
 
     /**
@@ -32,5 +32,8 @@ class Kernel extends HttpKernel
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
 //        'enableCrossRequestMiddleware' => \App\Http\Middleware\EnableCrossRequestMiddleware::class
+        'ApplicantsAuthenticate' => \App\Http\Middleware\ApplicantsAuthenticate::class,
+        'RecruiterAuthenticate' => \App\Http\Middleware\RecruiterAuthenticate::class,
+        'RecruiterCompanyChoose' => \App\Http\Middleware\RecruiterCompanyChoose::class,
     ];
 }
