@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Answer;
+use App\Check;
 use App\Company;
 use App\Http\Requests\CompanyRegisterRequest;
 use App\Product;
@@ -679,5 +680,28 @@ class CompanyController extends Controller{
         ]);
         return redirect('/answer/show/'.$question_id . '/' . $company_id);
 
+    }
+
+    public function getCheck(){
+        return view('recruitment.companyCheck',[
+            'user' => $this->user,
+
+        ]);
+    }
+
+    public function postCheck(Request $request){
+
+        $pic = $request->get('img');
+
+        $flag = Check::insert([
+            'user_id' => $this->user['id'],
+            'picture' => $pic,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
+        ]);
+
+        return response()->json([
+            'flag' => $flag
+        ]);
     }
 }

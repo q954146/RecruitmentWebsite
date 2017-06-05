@@ -8,7 +8,9 @@
             <li class="current"><a href="/company/show/{{$user->company['id']}}" >我的公司</a></li>
             <li class="current"><a href="/profession/publish" >新职业发布</a></li>
             <li class="current"><a href="/profession/onLine" >招聘管理</a></li>
-            <li class="current"><a href="/unviewed/resume" >简历管理</a></li>
+            @if($user->company['state'] != 1)
+            <li class="current"><a href="/check" >公司认证</a></li>
+            @endif
         </ul>
         <ul class="loginTop">
             <li><a href="/update/password" >{{$user->name}}</a></li>

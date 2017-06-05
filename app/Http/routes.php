@@ -96,6 +96,10 @@ Route::group(['middleware' => 'auth'],function (){
         Route::post('/company/choose','CompanyController@postCompanyChoose');
         Route::get('/company/choose','CompanyController@getCompanyChoose');
 
+        Route::get('/check','CompanyController@getCheck');
+        Route::post('/check','CompanyController@postCheck');
+
+
         Route::get('/unviewed/resume','SendController@getUnviewedResume');
         Route::get('/viewed/resume','SendController@getViewedResume');
         Route::get('/pending/resume','SendController@getPendingResume');
@@ -116,16 +120,12 @@ Route::group(['middleware' => 'auth'],function (){
 
 
 
+Route::get('admin/login','ManageController@getAdminLogin');
+Route::post('admin/login','ManageController@postAdminLogin');
+Route::get('admin/logout','ManageController@getAdminLogout');
 
-
-
-
-
-
-
-
-
-Route:get('/getPicture','UploadController@getPicture');
+Route::get('admin/manage','ManageController@getManage');
+Route::post('admin/manage','ManageController@postManage');
 
 // 认证路由...
 Route::get('auth/login', 'Auth\AuthController@getLogin');

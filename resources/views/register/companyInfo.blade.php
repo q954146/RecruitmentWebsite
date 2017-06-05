@@ -2,8 +2,7 @@
 <html>
 <head>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-    <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <title>传媒之家-最专业的传媒领域招聘平台</title>
+\    <title>传媒之家-最专业的传媒领域招聘平台</title>
     <script type="text/javascript">
         var ctx = "http://123.207.137.43";
     </script>

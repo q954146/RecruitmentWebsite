@@ -43,6 +43,7 @@
                     <span>传媒认证</span>
                 </a>
                 @endif
+
                 <div class="company_word">
                     {{$company['oneDesc']}}
                 </div>
